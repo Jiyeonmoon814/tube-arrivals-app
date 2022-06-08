@@ -46,7 +46,7 @@ export const App = () => {
      let west = []
 
      //map through the array and sort them by platformName 
-     sortData.map(el => {
+     sortData.forEach(el => {
        if(el.platformName.includes('East')){
          east.push(el)
        }else{
