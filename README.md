@@ -1,11 +1,15 @@
-In the project directory, you can run:
+To run the project, clone a repository or download ZIP <br />
+and then Open the terminal :   
+
+### `npm install` 
+
+and then
 
 ### `npm start`
 
-Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-### Goals 
+### 🥅  Goals 
 ✔️ Display the trains by the platform they're arriving at <br />
 ✔️ Display the trains in order of which one is due next <br />
 ✔️ Display the trains' towards, due, current location information  <br />
