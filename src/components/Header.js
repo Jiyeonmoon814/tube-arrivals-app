@@ -4,7 +4,7 @@ export const Header = ({ platform }) => {
   return (
     <HeaderStyles>
       <h2>{platform}</h2>
-      <p>at Great Portland Street Underground Station</p>
+      <p>at Oxford Circus Underground Station</p>
     </HeaderStyles>
   )
 }

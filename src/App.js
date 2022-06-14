@@ -6,8 +6,8 @@ import { ArrivalsList } from './components/ArrivalsList'
 export const App = () => {
   const [count, setCount] = useState(0)
   const [stopPointId, setStopPointId] = useState('')
-  const [eastBound, setEastBound] = useState([])
-  const [westBound, setWestBound] = useState([])
+  const [platforms, setPlatforms] = useState([])
+  const [arrivalsList, setArrivalsList] = useState([])
 
   useEffect(() => {
     // call arrivals data from server every 1 min
@@ -40,22 +40,23 @@ export const App = () => {
     try{
       const res = await axios.get(`https://api.tfl.gov.uk/StopPoint/${stopPointId}/Arrivals?mode=tube`)
 
-    //sort arrivals List by timeToStation
-     const sortData = res.data.sort(sortList)
-     let east = []
-     let west = []
+      //sort arrivals List by timeToStation
+      const sortData = res.data.sort(sortList)
+     
+      setArrivalsList(sortData)
+      
+      // filter list by platformNames
+      const platformNames = sortData.map(el => el.platformName)
+      const filterPlatforms = new Set(platformNames)
+      let platforms = []
 
-     //map through the array and sort them by platformName 
-     sortData.forEach(el => {
-       if(el.platformName.includes('East')){
-         east.push(el)
-       }else{
-         west.push(el)
-       }
-     })
+      for(var i of  filterPlatforms){
+        platforms.push(i)
+      }
 
-     setEastBound(east)
-     setWestBound(west)
+      setPlatforms(platforms)
+
+
     }catch(err){
       console.log(err)
     }
@@ -68,7 +69,7 @@ export const App = () => {
   
   //get station's stop point id from server 
   const getStopPointId = async () => {
-    const stopPointName = 'Great Portland Street Underground Station'
+    const stopPointName = 'Oxford Circus Underground Station'
     
     try{
       const res = await axios.get(`https://api.tfl.gov.uk/Stoppoint/Search/${stopPointName}?modes=tube`)
@@ -82,11 +83,12 @@ export const App = () => {
 
   return (
     <>
-      <Header platform={'Westbound - Platform 1'}/>
-      <ArrivalsList arrivalsList={westBound} />
-
-      <Header platform={'Eastbound - Platform 2'}/>
-      <ArrivalsList arrivalsList={eastBound} />
+      {platforms.map(el => (
+        <>
+        <Header platform={el} />
+        <ArrivalsList arrivalsList={arrivalsList.filter(item => item.platformName == el)} />
+        </>
+      ))}
     </>
   )
 }

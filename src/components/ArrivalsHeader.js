@@ -9,7 +9,8 @@ export const ArrivalsHeader = ({ showMore, setShowMore }) => {
         </th>
         <th>Towards</th>
         <th>Due</th>
-        <th>Current Location</th>
+        {/* <th>Current Location</th> */}
+        <th>Platform names</th>
       </TableRow>
     </thead>
   )

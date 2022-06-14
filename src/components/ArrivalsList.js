@@ -20,11 +20,13 @@ export const ArrivalsList = ({ arrivalsList }) => {
         <ArrivalsHeader showMore={showMore} setShowMore={setShowMore} />
         <tbody>
           {updateList.length > 0 && updateList.map((li,idx) => (
-              <TableRow key={idx}>
+              // set keys to tell React which element is which in a list 
+              <TableRow key={li.id}> 
                   <td>{idx+1}</td>
                   <td>{li.towards}</td>
                   <td>{Math.floor(li.timeToStation / 60) === 0 ? 'due' : Math.floor(li.timeToStation / 60) + ' mins'  }</td>
-                  <td>{li.currentLocation}</td>
+                  {/* <td>{li.currentLocation}</td> */}
+                  <td>{li.platformName}</td>
               </TableRow>
           ))}
         </tbody>
